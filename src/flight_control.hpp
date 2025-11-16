@@ -64,6 +64,7 @@
 #define RATE_EXPO (0.5f)
 
 // グローバル関数の宣言
+// Global functions
 void init_copter(void);
 void loop_400Hz(void);
 void set_duty_fr(float duty);
@@ -72,6 +73,7 @@ void set_duty_rr(float duty);
 void set_duty_rl(float duty);
 
 // グローバル変数
+// Global variables
 extern volatile uint8_t Mode;
 extern volatile uint8_t Loop_flag;
 extern float Control_period;
@@ -127,7 +129,7 @@ extern volatile float Roll_rate_reference, Pitch_rate_reference, Yaw_rate_refere
 // Angle reference
 extern volatile float Roll_angle_reference, Pitch_angle_reference, Yaw_angle_reference;
 // 舵角指令値
-// Commanad
+// Command
 // スロットル指令値
 // Throttle
 extern volatile float Thrust_command;
@@ -135,9 +137,10 @@ extern volatile float Thrust_command;
 // Rate command
 extern volatile float Roll_rate_command, Pitch_rate_command, Yaw_rate_command;
 // 角度指令値
-// Angle comannd
+// Angle command
 extern volatile float Roll_angle_command, Pitch_angle_command, Yaw_angle_command;
 // 高度目標
+// Altitude reference
 extern volatile float Alt_ref;
 // Motor Duty
 extern volatile float FrontRight_motor_duty;
@@ -145,6 +148,7 @@ extern volatile float FrontLeft_motor_duty;
 extern volatile float RearRight_motor_duty;
 extern volatile float RearLeft_motor_duty;
 // 速度目標Z
+// Velocity Target Z
 extern float Z_dot_ref;
 
 extern uint8_t Control_mode;

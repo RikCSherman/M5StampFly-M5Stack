@@ -25,13 +25,13 @@ bool init_button(void) {
 
     button.setLongPressIntervalMs(3000);
 
-    xTaskCreatePinnedToCore(task_button_update,  // 任务函数
-                            "TaskButtonUpdate",  // 任务名称
-                            1024 * 4,            // 堆栈大小
-                            NULL,                // 传递参数
-                            0,                   // 任务优先级
-                            NULL,                // 任务句柄
-                            tskNO_AFFINITY);     // 无关联，不绑定在任何一个核上
+    xTaskCreatePinnedToCore(task_button_update,  // 任务函数 Task function
+                            "TaskButtonUpdate",  // 任务名称 Task name
+                            1024 * 4,            // 堆栈大小 Stack size
+                            NULL,                // 传递参数 Parameters
+                            0,                   // 任务优先级 Priority
+                            NULL,                // 任务句柄 Task handle
+                            tskNO_AFFINITY);     // 无关联，不绑定在任何一个核上 Core affinity, not bound to any core
 
     return true;
 }

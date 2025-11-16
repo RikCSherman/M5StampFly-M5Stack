@@ -196,18 +196,18 @@ float sensor_read(void) {
     sens_interval   = sensor_time - old_sensor_time;
     opt_interval    = opt_interval + sens_interval;
 
-    // 以下では航空工学の座標軸の取り方に従って
-    // X軸：前後（前が正）左肩上がりが回転の正
-    // Y軸：右左（右が正）頭上げが回転の正
-    // Z軸：下上（下が正）右回りが回転の正
-    // となる様に軸の変換を施しています
-    // BMI270の座標軸の撮り方は
-    // X軸：右左（右が正）頭上げが回転の正
-    // Y軸：前後（前が正）左肩上がりが回転の正
-    // Z軸：上下（上が正）左回りが回転の正
+    // 以下では航空工学の座標軸の取り方に従って // In the following, according to the coordinate axis of aeronautical engineering
+    // X軸：前後（前が正）左肩上がりが回転の正 // X-axis: front-back (front is positive), left shoulder up is positive rotation
+    // Y軸：右左（右が正）頭上げが回転の正 // Y-axis: right-left (right is positive), head up is positive rotation
+    // Z軸：下上（下が正）右回りが回転の正 // Z-axis: down-up (down is positive), clockwise is positive rotation
+    // となる様に軸の変換を施しています // The axes are transformed as follows
+    // BMI270の座標軸の撮り方は // The way to take the coordinate axis of BMI270 is
+    // X軸：右左（右が正）頭上げが回転の正 // X-axis: right-left (right is positive), head up is positive rotation
+    // Y軸：前後（前が正）左肩上がりが回転の正 // Y-axis: front-back (front is positive), left shoulder up is positive rotation
+    // Z軸：上下（上が正）左回りが回転の正 // Z-axis: up-down (up is positive), left rotation is positive
 
     // Get IMU raw data
-    imu_update();  // IMUの値を読む前に必ず実行
+    imu_update();  // IMUの値を読む前に必ず実行 // Always execute before reading the IMU value
     acc_x  = imu_get_acc_x();
     acc_y  = imu_get_acc_y();
     acc_z  = imu_get_acc_z();
@@ -226,6 +226,7 @@ float sensor_read(void) {
     Yaw_rate_raw   = -gyro_z;
 
     if ((Mode == PARKING_MODE) && (Mode != preMode))  // モードが遷移した時Static変数を初期化する。外れ値除去のバグ対策
+                             // Initialize static variables when the mode transitions. Bug fix for outlier removal
     {
         first_flag   = 0;
         old_range[0] = 0;
@@ -279,7 +280,7 @@ float sensor_read(void) {
                 h                          = alt_time - old_alt_time;
                 ToF_bottom_data_ready_flag = 0;
 
-                // 距離の値の更新
+                // 距離の値の更新 // Update distance value
                 // old_range[0] = dist;
                 RawRange = tof_bottom_get_range();
                 if (Mode == PARKING_MODE) RawRangeFront = tof_front_get_range();
@@ -291,7 +292,7 @@ float sensor_read(void) {
                     RangeFront = RawRangeFront;
                 }
 
-                // 外れ値処理
+                // 外れ値処理 // Outlier processing
                 deff = Range - old_range[1];
                 if (deff > 500 && outlier_counter < 2) {
                     Range = old_range[1] + (old_range[1] - old_range[3]) / 2;
@@ -322,7 +323,7 @@ float sensor_read(void) {
         else
             first_flag = 1;
         Altitude2 = EstimatedAltitude.Altitude;
-        // MAX_ALTを超えたら高度下げる（自動着陸）
+        // MAX_ALTを超えたら高度下げる（自動着陸） // If it exceeds MAX_ALT, lower the altitude (automatic landing)
         if ((Altitude2 > ALT_LIMIT && Alt_flag >= 1 && Flip_flag == 0) || RawRange == 0)
             Range0flag++;
         else
@@ -354,7 +355,7 @@ float sensor_read(void) {
         if (Under_voltage_flag > UNDER_VOLTAGE_COUNT) Under_voltage_flag = UNDER_VOLTAGE_COUNT;
     }
 
-    preMode = Mode;  // 今のモードを記憶
+    preMode = Mode;  // 今のモードを記憶 // Remember the current mode
 
     uint32_t et = micros();
     // USBSerial.printf("Sensor read %f %f %f\n\r", (mt-st)*1.0e-6, (et-mt)*1e-6, (et-st)*1.0e-6);

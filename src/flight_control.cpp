@@ -291,6 +291,7 @@ void loop_400Hz(void) {
     static uint8_t led = 1;
     float sense_time;
     // 割り込みにより400Hzで以降のコードが実行
+    // The following code is executed at 400Hz by interrupt.
     while (Loop_flag == 0);
     Loop_flag = 0;
 

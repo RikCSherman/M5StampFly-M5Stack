@@ -60,14 +60,13 @@ void led_drive(void) {
     } else if (Mode == FLIGHT_MODE) {
         if (Control_mode == ANGLECONTROL) {
             if (Flip_flag == 0)
-                Led_color = YELLOW;  // スタビライズモード・マニュアル飛行では黄色
+                Led_color = YELLOW;  // スタビライズモード・マニュアル飛行では黄色 Stabilize mode/manual flight is yellow
             else
-                Led_color = 0xFF9933;  // 宙返りではオレンジ？
+                Led_color = 0xFF9933;  // 宙返りではオレンジ？ Backflip is orange?
         } else
-            Led_color = 0xDC669B;  // アクロモード
-
-        if (Throttle_control_mode == 1) Led_color = 0xc71585;  // 高度制御初期
-        if (Alt_flag >= 1) Led_color = 0x331155;               // 高度制御モードではピンク
+            Led_color = 0xDC669B;  // アクロモード Acro mode
+        if (Throttle_control_mode == 1) Led_color = 0xc71585;  // 高度制御初期 Initial altitude control
+        if (Alt_flag >= 1) Led_color = 0x331155;               // 高度制御モードではピンク Pink in altitude control mode
         if (Rc_err_flag == 1) Led_color = 0xff0000;
 
         if (Under_voltage_flag < UNDER_VOLTAGE_COUNT) {
